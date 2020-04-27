@@ -1,0 +1,53 @@
+1> Test scenarios to test these APIs
+    a) Authenticate API
+	> Functional Testing : 
+		> Post correct username and password. Check if it generates a token.
+		> Send random bearer token value too alongwith POST request.
+	> Neagtive Testing:
+		> Send blank username and check that auth fails.
+		> Send wrong username and check that auth fails.
+		> Do not send "username" field in body and check that auth fails.
+		> Send blank password and check that auth fails.
+		> Send wrong password and check that auth fails.
+		> Do not send "password" field in body and check that auth fails.
+		> Send additional JSON fields and check that auth works.
+		> Check if SQL injection can hamper security.
+	> Performance/Load testing
+		> Repeatedly post token request and check that its not hung.
+		> Check validaity of a token after same username generates another token.
+
+    b) Users API
+	> Functional Testing:
+		> Send request and check all records are displayed or not.
+		> Check for number of records and record data as per database.
+		> Check output of request when there is no data in database.
+	> Negative testing
+		> Send wrong Auth token.
+		> Send random body fields.
+	> Performance/Load testing
+		> Keep sending GET requests, and add a new user while GET requests are being sent.
+		> Send multiple GET and test for equality of records eveytime.
+
+    c) Find User API
+	> Functional Testing :
+		> Check if correct phone number results in correct user data being printed.
+		> Check if multiple users have same phone number, all results are displayed.
+	> Negative Testing :
+		> Send request for non existing phone number
+		> Send request with wrong auth token
+		> Send request for non numberic input
+		> Send extra fields in body
+
+
+2> Execute test cases and document defects and suggestions.
+    a) Authenticate API
+	> API returns proper token when username and passwor dis given
+	> Suggestion : Proper error message can be returned back, saying "username/password" is wrong or absent when authentication fails.
+    b) Users API
+	> API returns data of all 3 users.
+	> Suggestions : There should be capability to set output format.
+	> Body of request should have capability to set/unset which fields should be returned
+    c) User search API
+	> API returned proper search result
+	> Suggestions : Even when user is not found, STATUS_OK is received. That too, without any data.
+	> We can either send message "No users found" or send and error status.
